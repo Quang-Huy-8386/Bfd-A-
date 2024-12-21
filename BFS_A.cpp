@@ -8,9 +8,9 @@
 
 using namespace std;
 
-typedef pair<int, int> Point;  // Đại diện cho tọa độ (x, y)
+typedef pair<int, int> Point;  
 
-// Hàm tính toán khoảng cách Manhattan làm heuristic
+
 int heuristic(Point a, Point b) {
     return abs(a.first - b.first) + abs(a.second - b.second);
 }
@@ -93,17 +93,34 @@ vector<Point> bfs_with_a_star(const vector<vector<int>>& grid, Point start, Poin
 }
 
 int main() {
-    vector<vector<int>> grid = {
-        {0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 0},
-        {0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 0},
-        {0, 0, 0, 0, 0}
-    };
-    
-    Point start = {0, 0};  // Điểm bắt đầu
-    Point goal = {4, 4};   // Điểm đích
-    
+    int rows, cols;
+
+    // Nhập kích thước ma trận
+    cout << "Nhập số hàng và số cột của ma trận (rows cols): ";
+    cin >> rows >> cols;
+
+    vector<vector<int>> grid(rows, vector<int>(cols));
+
+    // Nhập ma trận
+    cout << "Nhập ma trận (0 cho ô trống, 1 cho tường):\n";
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cin >> grid[i][j];
+        }
+    }
+
+    int start_x, start_y, goal_x, goal_y;
+
+    // Nhập điểm bắt đầu và điểm đích
+    cout << "Nhập tọa độ điểm bắt đầu (start_x start_y): ";
+    cin >> start_x >> start_y;
+    cout << "Nhập tọa độ điểm đích (goal_x goal_y): ";
+    cin >> goal_x >> goal_y;
+
+    Point start = {start_x, start_y};
+    Point goal = {goal_x, goal_y};
+
+    // Tìm đường đi
     vector<Point> path = bfs_with_a_star(grid, start, goal);
     
     if (!path.empty()) {
@@ -117,3 +134,4 @@ int main() {
     
     return 0;
 }
+
